@@ -15,16 +15,16 @@ this class solves the sudoku board
 # ]
 
 board = [
-        [5, 3, 0, 0, 7, 0, 0, 0, 0],
-        [6, 0, 0, 1, 9, 5, 0, 0, 0],
-        [0, 9, 8, 0, 0, 0, 0, 6, 0],
-        [8, 0, 0, 0, 6, 0, 0, 0, 3],
-        [4, 0, 0, 8, 0, 3, 0, 0, 1],
-        [7, 0, 0, 0, 2, 0, 0, 0, 6],
-        [0, 6, 0, 0, 0, 0, 2, 8, 0],
-        [0, 0, 0, 4, 1, 9, 0, 0, 5],
-        [0, 0, 0, 0, 8, 0, 0, 7, 9]
-    ]
+    [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 8, 0, 0, 7, 9]
+]
 
 ''' 
 solve sudoku board
@@ -104,9 +104,9 @@ def valid(boa, num, pos):
     square_y = pos[0] // 3
 
     # loop through all the squares
-    for i in range(square_y*3, square_y*3 + 3):
-        for j in range(square_x*3, square_x*3 + 3):
-            if boa[i][j] == num and (i,j) != pos:
+    for i in range(square_y * 3, square_y * 3 + 3):
+        for j in range(square_x * 3, square_x * 3 + 3):
+            if boa[i][j] == num and (i, j) != pos:
                 return False
 
     return True

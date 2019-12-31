@@ -16,19 +16,38 @@ class Grid:
     #     [0, 4, 9, 2, 0, 6, 0, 0, 7]
     # ]
 
+    # board = [
+    #     [5, 3, 0, 0, 7, 0, 0, 0, 0],
+    #     [6, 0, 0, 1, 9, 5, 0, 0, 0],
+    #     [0, 9, 8, 0, 0, 0, 0, 6, 0],
+    #     [8, 0, 0, 0, 6, 0, 0, 0, 3],
+    #     [4, 0, 0, 8, 0, 3, 0, 0, 1],
+    #     [7, 0, 0, 0, 2, 0, 0, 0, 6],
+    #     [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    #     [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    #     [0, 0, 0, 0, 8, 0, 0, 7, 9]
+    # ]
+
     board = [
-        [5, 3, 0, 0, 7, 0, 0, 0, 0],
-        [6, 0, 0, 1, 9, 5, 0, 0, 0],
-        [0, 9, 8, 0, 0, 0, 0, 6, 0],
-        [8, 0, 0, 0, 6, 0, 0, 0, 3],
-        [4, 0, 0, 8, 0, 3, 0, 0, 1],
-        [7, 0, 0, 0, 2, 0, 0, 0, 6],
-        [0, 6, 0, 0, 0, 0, 2, 8, 0],
-        [0, 0, 0, 4, 1, 9, 0, 0, 5],
-        [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        [9, 0, 0, 3, 4, 0, 6, 0, 0],
+        [6, 0, 0, 0, 0, 7, 0, 0, 4],
+        [0, 2, 0, 5, 0, 0, 0, 1, 3],
+        [7, 0, 0, 0, 0, 9, 5, 0, 8],
+        [0, 0, 8, 7, 3, 0, 0, 6, 2],
+        [1, 3, 0, 0, 0, 0, 4, 7, 0],
+        [3, 4, 0, 5, 1, 7, 0, 0, 0],
+        [0, 0, 6, 0, 0, 0, 8, 9, 1],
+        [8, 7, 1, 0, 2, 0, 0, 4, 0]
     ]
 
     # intializing fields
+    # @param self this
+    # @param value the value of the box
+    # @param row row number
+    # @param col column number
+    # @param width width of the box
+    # @param height height of the box
+    # @param
     def __init__(self, rows, cols, width, height, win):
         self.rows = rows
         self.cols = cols
@@ -41,10 +60,13 @@ class Grid:
         self.win = win
 
     # updates the GUI
+    # @param self this
     def update_model(self):
         self.model = [[self.cubes[i][j].value for j in range(self.cols)] for i in range(self.rows)]
 
     # places a value on the board permanently
+    # @param self this
+    # @param val the entered value
     def place(self, val):
         row, col = self.selected
         if self.cubes[row][col].value == 0:
@@ -61,11 +83,14 @@ class Grid:
                 return False
 
     # displays value that's typed but not entered
+    # @param self this
+    # @param val the entered value
     def sketch(self, val):
         row, col = self.selected
         self.cubes[row][col].set_temp(val)
     
     # outlines a selected box
+    # @param self this
     def draw(self):
         # Draw Grid Lines
         gap = self.width / 9
@@ -83,6 +108,9 @@ class Grid:
                 self.cubes[i][j].draw(self.win)
 
     # returns the position of the selected cube
+    # @param self this
+    # @param row the row
+    # @param col the column
     def select(self, row, col):
         # Reset all other
         for i in range(self.rows):
@@ -93,11 +121,16 @@ class Grid:
         self.selected = (row, col)
 
     # clears the board
+    # @param self this
     def clear(self):
         row, col = self.selected
         if self.cubes[row][col].value == 0:
             self.cubes[row][col].set_temp(0)
 
+    # which box is clicked
+    # @param self this
+    # @param pos position
+    # @return the row and column
     def click(self, pos):
         """
         :param: pos
@@ -112,6 +145,7 @@ class Grid:
             return None
 
     # checks if there's no empty cubes
+    # @param self this
     def is_finished(self):
         for i in range(self.rows):
             for j in range(self.cols):
@@ -119,6 +153,8 @@ class Grid:
                     return False
         return True
 
+    # the same solve method from solver.py
+    # @param self this
     def solve(self):
         find = find_empty(self.model)
         if not find:
@@ -137,6 +173,8 @@ class Grid:
 
         return False
 
+    # solve method but refering and updating the GUI
+    # @param self this
     def solve_gui(self):
         find = find_empty(self.model)
         if not find:
@@ -165,12 +203,18 @@ class Grid:
 
         return False
 
-
+# each individual box
 class Cube:
     rows = 9
     cols = 9
 
     # intializing fields
+    # @param self this
+    # @param value the value of the box
+    # @param row row number
+    # @param col column number
+    # @param width width of the box
+    # @param height height of the box
     def __init__(self, value, row, col, width, height):
         self.value = value
         self.temp = 0
@@ -181,6 +225,8 @@ class Cube:
         self.selected = False
 
     # outlines selected box
+    # @param self this
+    # @param if the game in it's win state
     def draw(self, win):
         fnt = pygame.font.SysFont("comicsans", 40)
 
@@ -199,7 +245,10 @@ class Cube:
             pygame.draw.rect(win, (255,0,0), (x,y, gap ,gap), 3)
 
     # updates the change
-    def draw_change(self, win, g=True):
+    # @param self this
+    # @param win if the game is at it's win state
+    # @param g boolean
+    def draw_change(self, win, g = True):
         fnt = pygame.font.SysFont("comicsans", 40)
 
         gap = self.width / 9
@@ -216,14 +265,20 @@ class Cube:
             pygame.draw.rect(win, (255, 0, 0), (x, y, gap, gap), 3)
 
     # sets permanent value
+    # @param self this
+    # @param self the inserted value
     def set(self, val):
         self.value = val
 
     # temp value
+    # @param self this
+    # @param the inserted value
     def set_temp(self, val):
         self.temp = val
 
 # looks for empty cells
+# @param bo the board
+# @return the row and column
 def find_empty(bo):
     for i in range(len(bo)):
         for j in range(len(bo[0])):
@@ -233,6 +288,11 @@ def find_empty(bo):
     return None
 
 # checks if the value is valid
+# from solver.py
+# @param bo the board
+# @param num the number that it's checking
+# @param pos the position of the board that it's comparing to
+# @return true if the number is valid in that position
 def valid(bo, num, pos):
     # Check row
     for i in range(len(bo[0])):
@@ -256,6 +316,10 @@ def valid(bo, num, pos):
     return True
 
 # draws strikes and text
+# @param win true or false when finish
+# @param board the board 
+# @param time the timer
+# @param strikes the number of strikes there are
 def redraw_window(win, board, time, strikes):
     win.fill((255,255,255))
 
@@ -272,6 +336,8 @@ def redraw_window(win, board, time, strikes):
     board.draw()
 
 # format a timer
+# @param secs the time
+# @return string of the timer
 def format_time(secs):
     sec = secs % 60
     minute = secs // 60
@@ -280,7 +346,7 @@ def format_time(secs):
     mat = " " + str(hour) + ":" + str(minute) + ":" + str(sec)
     return mat
 
-
+# the project runner
 def main():
     win = pygame.display.set_mode((540,600))
     pygame.display.set_caption("Sudoku")
