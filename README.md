@@ -1,5 +1,6 @@
 # sudoku
 Code inspired by TechWithTim from Youtube
+
 His code is linked here: https://github.com/techwithtim/Sudoku-GUI-Solver
 
 I followed his tutorial on how to code sudoku
