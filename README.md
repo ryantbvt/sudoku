@@ -15,3 +15,7 @@ If there are no values that can be inserted, the code goes back
 and inserts a new set of numbers so that it can continue to solve the board.
 
 If it cannot, the sudoku board isn't solvable
+
+# instructions (from techwithtim's description)
+
+Click a box and hit the number on your keybaord to pencil in a number. To confirm that value press the ENTER key on that box. To delete a pencil in you can click DEL. Finally to solve the board press SPACE, sit back and watch the algorithm run.
